@@ -1,0 +1,16 @@
+autoconf
+automake
+coreutils
+cscope
+gdbm
+libgpg-error
+libksba
+libtool
+libyaml
+macvim
+openssl
+openssl@1.1
+pkg-config
+python
+readline
+sqlite
