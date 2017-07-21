@@ -13,14 +13,20 @@ Plugin 'tpope/vim-fugitive'
 map <C-n> :NERDTreeToggle<CR>
 map <C-h> :tabp<CR>
 map <C-l> :tabn<CR>
+
+" keyboard remaps
+let mapleader = ','
+nmap <leader>d :call DeleteTrailingWS()<CR>
+
 " format JSON
 map <C-j> :$!python -mjson.tool<CR>
+
 call vundle#end()
 filetype plugin indent on
 colorscheme Tomorrow-Night
 syntax on
-set hlsearch
-set nu
+set hlsearch " hlsearch lists everything when searching
+set nu " line nu
 set smartcase
 set list
 set ruler
@@ -32,9 +38,9 @@ au BufNewFile,BufRead *.swigql set filetype=sql
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint'] " JS syntax checker
 let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
+let g:syntastic_auto_loc_list = 0 " this keeps the list on all the time
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 
@@ -46,3 +52,10 @@ if has("clipboard")
     set clipboard+=unnamedplus
   endif
 endif
+
+" delete trailing white spaces
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
