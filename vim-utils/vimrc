@@ -15,8 +15,10 @@ map <C-h> :tabp<CR>
 map <C-l> :tabn<CR>
 
 " keyboard remaps
+inoremap jk <Esc> " remap normal mode to jk, my finger wrist hurts
 let mapleader = ','
 nmap <leader>d :call DeleteTrailingWS()<CR>
+nmap <leader>r :so ~/.vimrc<CR>
 
 " format JSON
 map <C-j> :$!python -mjson.tool<CR>
@@ -38,6 +40,7 @@ au BufNewFile,BufRead *.swigql set filetype=sql
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set bs=indent,eol,start     " Backspace over everything in insert mode
 let g:syntastic_javascript_checkers = ['eslint'] " JS syntax checker
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0 " this keeps the list on all the time
