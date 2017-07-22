@@ -10,7 +10,10 @@ libyaml
 macvim
 openssl
 openssl@1.1
+perl
 pkg-config
 python
 readline
+ruby
 sqlite
+vim
