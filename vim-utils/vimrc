@@ -15,9 +15,11 @@ map <C-h> :tabp<CR>
 map <C-l> :tabn<CR>
 
 " keyboard remaps
-inoremap jk <Esc> " remap normal mode to jk, my finger wrist hurts
+inoremap jk <Esc> " remap normal mode to jk, my wrist hurts
 let mapleader = ','
 nmap <leader>d :call DeleteTrailingWS()<CR>
+nmap <leader>nh :noh<CR> " remap no highlight
+nmap <leader>pi :PluginInstall<CR> " typing is hard
 nmap <leader>r :so ~/.vimrc<CR>
 
 " format JSON
