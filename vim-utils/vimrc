@@ -3,25 +3,27 @@ set lazyredraw
 set ttyfast
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp^=~/.vim/bundle/ctrlp.vim "needs to be install separately because not packaged with vundle
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-sleuth'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rvm'
 " nerd tree remaps
-map <C-n> :NERDTreeToggle<CR>
 map <C-h> :tabp<CR>
 map <C-l> :tabn<CR>
 
 " keyboard remaps
 inoremap jk <Esc> " remap normal mode to jk, my wrist hurts
 let mapleader = ','
-nmap <leader>d :call DeleteTrailingWS()<CR>
-nmap <leader>nh :noh<CR> " remap no highlight
+nmap <leader><space> :call DeleteTrailingWS()<CR>
+nmap <leader>d :NERDTreeToggle<CR> " remap nerdtree toggle
 nmap <leader>pi :PluginInstall<CR> " typing is hard
 nmap <leader>r :so ~/.vimrc<CR>
-
+nmap <leader>t :CommandT<CR>
+nmap <leader>s :CtrlP<CR>
 " format JSON
 map <C-j> :$!python -mjson.tool<CR>
 
