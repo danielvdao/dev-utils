@@ -1,9 +1,5 @@
-set nocompatible
-set lazyredraw
-set ttyfast
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-set rtp^=~/.vim/bundle/ctrlp.vim "needs to be install separately because not packaged with vundle
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
@@ -11,6 +7,11 @@ Plugin 'tpope/vim-sleuth'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rvm'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'jremmen/vim-ripgrep'
+
 " nerd tree remaps
 map <C-h> :tabp<CR>
 map <C-l> :tabn<CR>
@@ -21,9 +22,10 @@ let mapleader = ','
 nmap <leader><space> :call DeleteTrailingWS()<CR>
 nmap <leader>d :NERDTreeToggle<CR> " remap nerdtree toggle
 nmap <leader>pi :PluginInstall<CR> " typing is hard
-nmap <leader>r :so ~/.vimrc<CR>
-nmap <leader>t :CommandT<CR>
+nmap <leader>r :so ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 nmap <leader>s :CtrlP<CR>
+nmap <leader>c :CtrlPClearCache<CR>
+
 " format JSON
 map <C-j> :$!python -mjson.tool<CR>
 
@@ -51,6 +53,8 @@ let g:syntastic_auto_loc_list = 0 " this keeps the list on all the time
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 
+set wildignore+=*/.git/*,*/tmp/*,*.swp " set to ignore for ripgrep
+
 " need either macvim or --with-client-server from normal vim overridden via
 " brew to use this feature
 if has("clipboard")
@@ -66,3 +70,14 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
+
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
+
+" disable screen redraw caching
+set nocompatible
+set lazyredraw
+set ttyfast
