@@ -1,5 +1,6 @@
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/local/opt/fzf
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
@@ -10,6 +11,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'luochen1990/rainbow'
+Plugin 'junegunn/fzf.vim'
 
 " nerd tree remaps
 map <C-h> :tabp<CR>
@@ -21,9 +23,8 @@ let mapleader = ','
 nmap <leader><space> :call DeleteTrailingWS()<CR>
 nmap <leader>d :NERDTreeToggle<CR> " remap nerdtree toggle
 nmap <leader>pi :PluginInstall<CR> " typing is hard
-nmap <leader>r :so ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-nmap <leader>s :CtrlP<CR>
-nmap <leader>c :CtrlPClearCache<CR>
+nmap <leader>r :Rg 
+nmap <leader>s :FZF<CR> " FZF search
 nmap <leader>e :e<CR> " reload current file
 
 " format JSON
@@ -39,6 +40,7 @@ set smartcase
 set list
 set ruler
 set listchars=tab:▸\ ,trail:▫,nbsp:·
+set directory-=. " don't store swapfiles in the current directory
 
 " set syntax checkers
 set statusline+=%#warningmsg#
@@ -46,7 +48,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set bs=indent,eol,start     " Backspace over everything in insert mode
 let g:syntastic_javascript_checkers = ['eslint'] " JS syntax checker
-let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0 " this keeps the list on all the time
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
