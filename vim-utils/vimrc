@@ -23,7 +23,7 @@ let mapleader = ','
 nmap <leader><space> :call DeleteTrailingWS()<CR>
 nmap <leader>d :NERDTreeToggle<CR> " remap nerdtree toggle
 nmap <leader>pi :PluginInstall<CR> " typing is hard
-nmap <leader>r :Rg 
+nmap <leader>r :Rg
 nmap <leader>s :FZF<CR> " FZF search
 nmap <leader>e :e<CR> " reload current file
 
@@ -47,6 +47,8 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set bs=indent,eol,start     " Backspace over everything in insert mode
+set paste " set paste spacing
+set mouse-=a " removes the visual select mode
 let g:syntastic_javascript_checkers = ['eslint'] " JS syntax checker
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0 " this keeps the list on all the time
@@ -90,7 +92,5 @@ endif
 " dont destroy current buffer in quickfix
 set switchbuf+=usetab,newtab
 
-" disable screen redraw caching
 set nocompatible
-set lazyredraw
 set ttyfast
