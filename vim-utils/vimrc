@@ -6,19 +6,20 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'tpope/vim-sleuth'
-Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'luochen1990/rainbow'
 Plugin 'junegunn/fzf.vim'
+Plugin 'dense-analysis/ale'
+
 
 " nerd tree remaps
 map <C-h> :tabp<CR>
 map <C-l> :tabn<CR>
 
 " keyboard remaps
-inoremap jk <Esc> " remap normal mode to jk, my wrist hurts
+inoremap jk <Esc>
 let mapleader = ','
 nmap <leader><space> :call DeleteTrailingWS()<CR>
 nmap <leader>d :NERDTreeToggle<CR> " remap nerdtree toggle
@@ -44,20 +45,24 @@ set directory-=. " don't store swapfiles in the current directory
 
 " set syntax checkers
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 set bs=indent,eol,start     " Backspace over everything in insert mode
 set paste " set paste spacing
 set mouse-=a " removes the visual select mode
-let g:syntastic_javascript_checkers = ['eslint'] " JS syntax checker
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0 " this keeps the list on all the time
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
 
-let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+" rainbow parens highlighting
+let g:rainbow_active = 1
 
-set wildignore+=*/.git/*,*/tmp/*,*.swp " set to ignore for ripgrep
+" ale linter configs
+let g:ale_linters = {
+\   'ruby': ['rubocop'],
+\}
+let g:ale_fixers = ['rubocop']
+let g:ale_fix_on_save = 1
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '●'
+" error jump remap for linter errors
+nmap <silent> <C-e> <Plug>(ale_next_wrap)
 
 " need either macvim or --with-client-server from normal vim overridden via
 " brew to use this feature
@@ -81,6 +86,8 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\.exe$\|\.so$\|\.dat$'
   \ }
 
+" ripgrep
+set wildignore+=*/.git/*,*/tmp/*,*.swp " set to ignore for ripgrep
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 " set up rg quickfix windows
 if executable('rg')
